@@ -1,6 +1,6 @@
 # CVFundamentals
-computer vision fundamentals 
-github:https://github.com/anjiang2016/CVFundamentals
+  computer vision fundamentals 
+  github:https://github.com/anjiang2016/CVFundamentals
 ```
 week1
 week2
