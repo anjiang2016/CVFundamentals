@@ -1,9 +1,9 @@
 # CVFundamentals
-  computer vision fundamentals 
-  github:https://github.com/anjiang2016/CVFundamentals
+  - computer vision fundamentals 
+  - github:https://github.com/anjiang2016/CVFundamentals
+  - week1 
+  - week2
 ```
-week1
-week2
  CV核心基础WEEK2 ：认识计算机视觉
  Pipeline:
  1.    图像处理与计算机视觉
