@@ -1,8 +1,9 @@
 # CVFundamentals
-computer vision fundamentals 
+  - computer vision fundamentals 
+  - github:https://github.com/anjiang2016/CVFundamentals
+  - week1 
+  - week2
 ```
-week1
-week2
  CV核心基础WEEK2 ：认识计算机视觉
  Pipeline:
  1.    图像处理与计算机视觉
@@ -11,8 +12,9 @@ week2
  4.    计算机视觉第一步：图像描述子
 
  作业：
+  
   编写计算机视觉的第0版程序。
-  步骤：
+  步骤
   1 生成10张图片，对应0,1,2,3,4,5,6,7,8,9.
   2 对这10张图片提取特征x。
   3 用一个判别器f(x)来决策输出结果y。
@@ -27,5 +29,5 @@ week2
     当x是 “7”图片对应的特征时，y=f(x)=7
     当x是 “8”图片对应的特征时，y=f(x)=8
     当x是 “9”图片对应的特征时，y=f(x)=9
-
+ 4 参考代码:week2/recognize_computer_vision.py
 ```
