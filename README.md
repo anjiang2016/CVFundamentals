@@ -30,6 +30,8 @@
     当x是 “8”图片对应的特征时，y=f(x)=8
     当x是 “9”图片对应的特征时，y=f(x)=9
  4 参考代码:week2/recognize_computer_vision.py
+```
+
    - week3
 ```
 CV核心基础WEEK3 ：经典机器学习（一）
