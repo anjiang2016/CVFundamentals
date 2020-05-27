@@ -32,7 +32,7 @@
  4 参考代码:week2/recognize_computer_vision.py
 ```
 
-   - week3
+   - week3[github:https://github.com/anjiang2016/CVFundamentals]
 ```
 CV核心基础WEEK3 ：经典机器学习（一）
 Pipeline:
