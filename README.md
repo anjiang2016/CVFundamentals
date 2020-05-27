@@ -63,4 +63,5 @@ Pipeline:
   /week3/auto_grad使用时的注意事项.ipynb
   /week3/auto_grad形式的梯度下降.ipynb
   /week3/running_jupyter.pdf,jupyter运行命令
+  jupyter常用效率快捷键：https://zhuanlan.zhihu.com/p/143919082
 ```
