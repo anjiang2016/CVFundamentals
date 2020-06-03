@@ -31,14 +31,17 @@ for i in range(1,50):
     #w.data = w.data - w.grad.data*0.1
     #print("loss=%s,w.requires_grad:[%s],w=[%s]"%(loss.data,w.requires_grad,w.grad))
     print("y=%s,loss=%s"%(y,loss.data))
-    # use torch.no_grad()
-    #with torch.no_grad():
-    #    w.data = w - w.grad*0.1
-    #    w.grad = torch.zeros(1,10)
-
-    # use tensor.data
-    w.data = w.data - w.grad.data*0.1
-    w.grad.data = torch.zeros(1,10)
+    
+    # 梯度更新写法一,use tensor.data
+    #w.data = w.data - w.grad.data*0.1
+    #w.grad.data = torch.zeros(1,10)
+    # 梯度更新写法二,use torch.no_grad()
+    with torch.no_grad():
+        w -= w.grad*0.1
+        w.grad.zero_()
+        #pdb.set_trace()
+        #w.data = w.data - w.grad.data*0.1
+        #w.grad.data = torch.zeros(1,10)
     
 print("*"*20)
 print("model:y= wx")
