@@ -126,11 +126,13 @@ def model(feature,weights):
     #import pdb
     #pdb.set_trace()
     feature = torch.cat((feature,torch.tensor(1.0).view(1,1)),1)
-    feature2=feature.mul(feature)
+    #feature2=feature.mul(feature)
     #feature3=feature2.mul(feature)
     #feature4=feature3.mul(feature)
     #pdb.set_trace()
     #y = feature.mm(weights[:,0:1])+feature2.mm(weights[:,1:2])+feature3.mm(weights[:,2:3])+feature4.mm(weights[:,3:4])
+    #y = [0,-1,-1,-1]
+    # y = [-1,1,-1,01]
     y = feature.mm(weights)
     return y
 

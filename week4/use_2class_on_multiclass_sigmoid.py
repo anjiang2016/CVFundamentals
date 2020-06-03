@@ -135,7 +135,8 @@ def model(feature,weights,weights1):
     #pdb.set_trace()
     #y = feature.mm(weights[:,0:1])+feature2.mm(weights[:,1:2])+feature3.mm(weights[:,2:3])+feature4.mm(weights[:,3:4])
     h = feature.mm(weights)
-    y = h.mm(weights1)
+    #y = h.mm(weights1)
+    y= torch.sigmoid(h)
     return y
 
 def train_model(image_data,image_label,weights,weights1,lr):

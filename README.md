@@ -65,3 +65,39 @@ Pipeline:
   /week3/running_jupyter.pdf,jupyter运行命令
   jupyter常用效率快捷键：https://zhuanlan.zhihu.com/p/143919082
 ```
+   - week4[github:https://github.com/anjiang2016/CVFundamentals]
+```
+CV核心基础WEEK4 ：经典机器学习（二）
+Pipeline:
+1    线性模型的局限性，以及改进方法 
+2    用二分类来进行多分类：感知机
+3    用逻辑回归进行多分类
+4    神经网络：反向传播网络
+5    【遗留】 欠拟合，过拟合与正则化
+6    【遗留】 支持向量机SVM推导
+
+
+作业：
+已经刷爆hct66 dataset，这周就开始mnist数据集的挑战；
+编写计算机视觉的的第2版程序：用3层反向传播网络来训练mnist中的100张图片。
+要求：
+   1 使用pytorch的auto_grad功能来编写
+   2 要求随着epoch的增加，给出训练的准确度acc,和测试的准确度acc
+步骤：
+  1 下载并调用mnist数据集：https://github.com/anjiang2016/CVFundamentals/blob/master/week4/mnist/readme.md
+  2 对mnist中的数据提取特征x。投影法可以用，但是效果不好，可以尝试用opencv 提取hog/lbp等特征
+  3 用反向传播网络来决策输出结果y。
+  4 反向传播网络的训练要使用梯度下降法，写代码的时候要用到pytorch 的auto_grad功能。
+ 期望达到精度：
+    训练精度:60%
+    测试精度:60%
+可参考代码：
+  /week4/assignment_week03_answer.py: week3作业参考答案
+  /week4/recognize_computer_vision_nonlinear_model.py:用非线性模型来识别数字
+  /week4/use_2class_on_multiclass.py:在htc66数据集上使用二分类进行多分类
+  /week4/use_2class_on_multiclass_sigmoid.py:在htc66数据集上使用逻辑回归二分类进行多分类：w
+  /week4/mnist/readme.md:mnist数据下载，读取，显示代码
+  /week4/mnist_use_2class_on_multicalss.py:在mnist上使用二分类进行多分类
+  /week4/mnist_bp.py:精度不好得一版bp代码
+  /week4/homework_dataset: hct1000数据集【选用】
+```

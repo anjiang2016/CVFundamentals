@@ -129,9 +129,9 @@ def model(feature,weights):
 def train_model(image_data,image_label,weights,lr):
     loss_value_before=100000000.
     loss_value=1000000.
-    #for epoch in range(0,3000):
-    epoch=0
-    while (loss_value_before-loss_value)>-1:
+    for epoch in range(0,3000):
+    #epoch=0
+    #while (loss_value_before-loss_value)>-1:
         #loss = 0 
         #for i in range(0,len(image_data)):
         loss_value_before=loss_value
@@ -164,7 +164,7 @@ def train_model(image_data,image_label,weights,lr):
             weights.grad.data.zero_()
             #loss.data=
         print("epoch=%s,loss=%s/%s,weights=%s"%(epoch,loss_value,loss_value_before,weights.view(14)))
-        epoch+=1
+        #epoch+=1
         #loss_value=0
         #:loss=0
         #import pdb

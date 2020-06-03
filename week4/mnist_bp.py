@@ -136,6 +136,25 @@ def model(feature,weights0,weights1):
     y =torch.sigmoid(h1)
     #y = 1.0/(1.0+torch.exp(-1.*h))
     return y
+def get_acc(image_data,image_label,weights0,weights1,start_i,end_i):
+
+    correct=0
+    for i in range(start_i,end_i):
+             #print(image_label[i])
+             #y = model(get_feature(image_data[i]),weights)
+             feature = get_feature(image_data[i])
+             y = model(feature,weights0,weights1)
+             #pdb.set_trace()
+             gt = image_label[i]
+             #pred=torch.argmin(torch.abs(y-gt)).item()
+             #pred = torch.argmin(torch.from_numpy(np.array([torch.min((torch.abs(y-j))).item() for j in range(0,10)]))).item()
+             pred = torch.argmin(torch.min(torch.abs(y-1))).item()
+             #print("图像[%s]得分类结果是:[%s]"%(gt,pred))
+             if gt==pred:
+                 correct+=1
+    #print("acc=%s"%(float(correct/20.0)))
+    return  float(correct/float(end_i-start_i))
+
 def one_hot(gt):
     gt_vector = torch.ones(1,10)
     gt_vector *= 0.0
@@ -200,13 +219,15 @@ def train_model(image_data,image_label,weights0,weights1,lr):
             #loss.data=
         #import pdb
         #print("epoch=%s,loss=%s/%s,weights=%s"%(epoch,loss_value,loss_value_before,(weights[:,0:2]).view(14)))
-        print("epoch=%s,loss=%s/%s"%(epoch,loss_value,loss_value_before))
+        train_acc=get_acc(image_data,image_label,weights0,weights1,0,80)
+        test_acc =get_acc(image_data,image_label,weights0,weights1,80,100)
+        print("epoch=%s,loss=%s/%s,train/test_acc:%s/%s"%(epoch,loss_value,loss_value_before,train_acc,test_acc))
         #epoch+=1
         #loss_value=0
         #:loss=0
         #import pdb
         #pdb.set_trace()
-    return weights
+    return weights0,weights1
 
 if __name__=="__main__":
     

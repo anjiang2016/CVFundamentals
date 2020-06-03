@@ -143,13 +143,32 @@ def model(feature,weights):
     return y
 def one_hot(gt):
     gt_vector = torch.ones(1,10)
-    gt_vector *= 0.0
-    gt_vector[0,gt] = 1.0
+    gt_vector *= -1.0*0.1
+    gt_vector[0,gt] = 1.0*0.9
     return gt_vector
+def get_acc(image_data,image_label,weights,start_i,end_i):
+
+    correct=0
+    for i in range(start_i,end_i):
+             #print(image_label[i])
+             #y = model(get_feature(image_data[i]),weights)
+             feature = get_feature(image_data[i])
+             y = model(feature,weights)
+             #pdb.set_trace()
+             gt = image_label[i]
+             #pred=torch.argmin(torch.abs(y-gt)).item()
+             pred = torch.argmin(torch.from_numpy(np.array([torch.min((torch.abs(y-j))).item() for j in range(0,10)]))).item()
+             #pred = torch.argmin((torch.abs(y-1))).item()
+             #print("图像[%s]得分类结果是:[%s]"%(gt,pred))
+             if gt==pred:
+                 correct+=1
+             
+    #print("acc=%s"%(float(correct/20.0)))
+    return  float(correct/float(end_i-start_i))
 def train_model(image_data,image_label,weights,lr):
     loss_value_before=1000000000000000.
     loss_value=10000000000000.
-    for epoch in range(0,300):
+    for epoch in range(0,3000):
     #epoch=0
     #while (loss_value_before-loss_value)>-1:
     
@@ -170,18 +189,20 @@ def train_model(image_data,image_label,weights,lr):
             #pdb.set_trace()
             gt = image_label[i]
             # 只关心一个值
-            #loss = torch.sum((y[0,gt:gt+1]-gt).mul(y[0,gt:gt+1]-gt))
-            gt_vector = one_hot(gt)
+            loss = torch.sum((y[0,gt:gt+1]-gt).mul(y[0,gt:gt+1]-gt))
+            #gt_vector = one_hot(gt)
             #pdb.set_trace()
             # 关心所有值
-            #loss = torch.sum((y-gt_vector).mul(y-gt_vector))
+            #loss = torch.sum((y-gt_vector).mul(y-gt_vector))+0.0*torch.sum(weights.mul(weights))
             # 用log的方式
             #pdb.set_trace()
             #loss = -torch.log(y[0,gt])-torch.sum(torch.log(1.0-y[0,0:gt]))-torch.sum(torch.log(1-y[0,gt:-1]))
             # 优化loss，正样本接近1，负样本远离1
-            loss1 = (y-1.0).mul(y-1.0)
-            loss = loss1[0,gt]+torch.sum(1.0/(loss1[0,0:gt]))+torch.sum(1.0/(loss1[0,gt:-1]))
+            #loss1 = (y-1.0).mul(y-1.0)
+            #loss = loss1[0,gt]+torch.sum(1.0/(loss1[0,0:gt]))+torch.sum(1.0/(loss1[0,gt:-1]))
             #print("%s,%s"%(y[0,gt:gt+1],gt))
+            #pdb.set_trace()
+            #print("%s,%s"%(torch.argmin(torch.abs(y-1)).item(),gt))
             #loss.data.add_(loss.data) 
             loss_value += loss.data.item()
             #print("loss=%s"%(loss))
@@ -203,7 +224,9 @@ def train_model(image_data,image_label,weights,lr):
             #loss.data=
         #import pdb
         #print("epoch=%s,loss=%s/%s,weights=%s"%(epoch,loss_value,loss_value_before,(weights[:,0:2]).view(14)))
-        print("epoch=%s,loss=%s/%s"%(epoch,loss_value,loss_value_before))
+        train_acc = get_acc(image_data,image_label,weights,0,80)
+        test_acc = get_acc(image_data,image_label,weights,80,100)
+        print("epoch=%s,loss=%s/%s,train/test_acc=%s/%s,"%(epoch,loss_value,loss_value_before,train_acc,test_acc))
         #epoch+=1
         #loss_value=0
         #:loss=0
@@ -219,22 +242,26 @@ if __name__=="__main__":
     # minst 2828 dataset 60000 samples
     mndata = MNIST('./mnist/python-mnist/data/')
     image_data_all, image_label_all = mndata.load_training()
+    #import pdb
+    #pdb.set_trace()
     image_data=image_data_all[0:100]
     image_label=image_label_all[0:100]
-    '''
+    ''' 
     pdb.set_trace()
     
     # 打印第1张图像
     print("数字%s对应的图片是:"%(image_label[0]))
     #print(image_data[3])
-    cv2.imshow(str(image_label[3]),np.array(image_data[3]).reshape((28,28)).astype('uint8'))
-    cv2.waitKey(2000)
+    #cv2.imshow("name",img)
+    cv2.imshow(str(image_label[0]),np.array(image_data[0]).reshape((28,28)).astype('uint8'))
+    # wait 2000 ms
+    cv2.waitKey(20000)
     print("-"*20)
     
     # 打印出第2张图像
     print("数字%s对应的图片是:"%(image_label[1]))
     cv2.imshow(str(image_label[1]),np.array(image_data[1]).reshape((28,28)).astype('uint8'))
-    cv2.waitKey(2000)
+    cv2.waitKey(20000)
     print("-"*20)
     '''
 
@@ -247,7 +274,7 @@ if __name__=="__main__":
 
     #测试：
     correct=0
-    for i in range(80,100):
+    for i in range(0,10):
              #print(image_label[i])
              #y = model(get_feature(image_data[i]),weights)
              feature = get_feature(image_data[i])
@@ -255,10 +282,10 @@ if __name__=="__main__":
              #pdb.set_trace()
              gt = image_label[i]
              #pred=torch.argmin(torch.abs(y-gt)).item()
-             #pred = torch.argmin(torch.from_numpy(np.array([torch.min((torch.abs(y-j))).item() for j in range(0,10)]))).item()
-             pred = torch.argmin(torch.min(torch.abs(y-1))).item()
+             pred = torch.argmin(torch.from_numpy(np.array([torch.min((torch.abs(y-j))).item() for j in range(0,10)]))).item()
+             #pred = torch.argmin(torch.abs(y-1)).item()
              print("图像[%s]得分类结果是:[%s]"%(gt,pred))
              if gt==pred:
                  correct+=1
              
-    print("acc=%s"%(float(correct/20.0)))
+    print("acc=%s"%(float(correct/10.0)))
