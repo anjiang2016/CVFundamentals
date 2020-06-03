@@ -1,0 +1,3 @@
+[submodule "week4/mnist/python-mnist"]
+	path = week4/mnist/python-mnist
+	url = https://github.com/sorki/python-mnist.git
