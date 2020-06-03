@@ -2,7 +2,7 @@
 
 # mnist数据集安装下载办法
 ```
- git clone https://github.com/sorki/python-mnist
+git clone https://github.com/sorki/python-mnist
 cd python-mnist
 #Get MNIST data:
 ./bin/mnist_get_data.sh
